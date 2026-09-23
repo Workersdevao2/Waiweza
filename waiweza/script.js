@@ -68,7 +68,9 @@ function formatPrice(n) {
 function productCardHTML(p) {
   return `
     <article class="product-card">
-      <div class="product-img" style="background-image: url('${p.image}');"></div>
+      <div class="product-img">
+        <img src="${p.image}" alt="${p.name}" loading="lazy" decoding="async" width="400" height="300">
+      </div>
       <div class="product-body">
         <h3>${p.name}</h3>
         <p class="product-desc">${p.desc}</p>
@@ -232,10 +234,40 @@ function initMenu() {
   }
 }
 
+
+function initLazyBackgrounds() {
+  const els = document.querySelectorAll('[data-bg]');
+  if (!els.length) return;
+
+  const load = (el) => {
+    const url = el.getAttribute('data-bg');
+    if (!url) return;
+    el.style.backgroundImage = `url('${url}')`;
+    el.removeAttribute('data-bg');
+  };
+
+  if (!('IntersectionObserver' in window)) {
+    els.forEach(load);
+    return;
+  }
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        load(entry.target);
+        io.unobserve(entry.target);
+      }
+    });
+  }, { rootMargin: '200px 0px' });
+
+  els.forEach(el => io.observe(el));
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   renderProducts();
   updateCartUI();
   initMenu();
+  initLazyBackgrounds();
 
   document.getElementById('cartBtn')?.addEventListener('click', openCart);
   document.getElementById('cartClose')?.addEventListener('click', closeCart);
