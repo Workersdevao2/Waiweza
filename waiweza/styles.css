@@ -951,3 +951,112 @@ button {
     height: 32px;
   }
 }
+
+.btn-clear {
+  margin-top: 0.6rem;
+  background: transparent;
+  color: var(--text-soft);
+  border: 1px solid var(--border);
+  font-size: 0.85rem;
+}
+
+.btn-clear:hover {
+  color: var(--text);
+  border-color: var(--text-soft);
+}
+
+/* ===== Repair booking form ===== */
+.repair-form-wrap {
+  margin-top: 3.5rem;
+  max-width: 720px;
+  margin-left: auto;
+  margin-right: auto;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--bg);
+  padding: 2rem 1.5rem;
+}
+
+.repair-form-header {
+  text-align: center;
+  margin-bottom: 1.75rem;
+}
+
+.repair-form-header h3 {
+  font-weight: 400;
+  font-size: 1.25rem;
+  letter-spacing: -0.01em;
+  margin-bottom: 0.4rem;
+}
+
+.repair-form-header p {
+  font-weight: 300;
+  font-size: 0.95rem;
+  color: var(--text-soft);
+}
+
+.repair-form-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+@media (min-width: 640px) {
+  .repair-form-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .form-field-full {
+    grid-column: 1 / -1;
+  }
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.form-field span {
+  font-size: 0.8rem;
+  letter-spacing: 0.04em;
+  color: var(--text-soft);
+}
+
+.form-field input,
+.form-field select,
+.form-field textarea {
+  font-family: var(--font);
+  font-size: 0.95rem;
+  font-weight: 300;
+  color: var(--text);
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 0.75rem 0.9rem;
+  outline: none;
+  transition: border-color 0.2s;
+  width: 100%;
+}
+
+.form-field input:focus,
+.form-field select:focus,
+.form-field textarea:focus {
+  border-color: var(--accent);
+}
+
+.form-field textarea {
+  resize: vertical;
+  min-height: 90px;
+}
+
+.repair-form .btn-primary {
+  width: 100%;
+}
+
+@media (min-width: 640px) {
+  .repair-form-wrap {
+    padding: 2.25rem 2rem;
+  }
+}

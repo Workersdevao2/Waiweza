@@ -262,6 +262,12 @@ function closeCart() {
   document.getElementById('cartOverlay')?.classList.remove('open');
 }
 
+function clearCart() {
+  if (cart.length === 0) return;
+  cart = [];
+  saveCart();
+}
+
 function checkout() {
   if (cart.length === 0) {
     alert('O carrinho está vazio.');
@@ -326,14 +332,43 @@ function initLazyBackgrounds() {
   els.forEach(el => io.observe(el));
 }
 
+
+function initRepairForm() {
+  const form = document.getElementById('repairForm');
+  if (!form) return;
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const data = new FormData(form);
+    const nome = (data.get('nome') || '').toString().trim();
+    const telefone = (data.get('telefone') || '').toString().trim();
+    const modelo = (data.get('modelo') || '').toString().trim();
+    const servico = (data.get('servico') || '').toString().trim();
+    const descricao = (data.get('descricao') || '').toString().trim();
+
+    let message = 'Olá! Quero agendar uma reparação:%0A%0A';
+    message += `*Nome:* ${encodeURIComponent(nome)}%0A`;
+    message += `*Telefone:* ${encodeURIComponent(telefone)}%0A`;
+    message += `*Modelo:* ${encodeURIComponent(modelo)}%0A`;
+    message += `*Serviço:* ${encodeURIComponent(servico)}%0A`;
+    if (descricao) {
+      message += `*Problema:* ${encodeURIComponent(descricao)}%0A`;
+    }
+
+    window.open(`https://wa.me/244932746855?text=${message}`, '_blank');
+  });
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   renderProducts();
   updateCartUI();
   initMenu();
   initLazyBackgrounds();
+  initRepairForm();
 
   document.getElementById('cartBtn')?.addEventListener('click', openCart);
   document.getElementById('cartClose')?.addEventListener('click', closeCart);
   document.getElementById('cartOverlay')?.addEventListener('click', closeCart);
   document.getElementById('checkoutBtn')?.addEventListener('click', checkout);
+  document.getElementById('clearCartBtn')?.addEventListener('click', clearCart);
 });
