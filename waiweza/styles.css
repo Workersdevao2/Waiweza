@@ -340,7 +340,7 @@ button {
   inset: 0;
   background-size: cover;
   background-position: center;
-  filter: brightness(0.32);
+  filter: brightness(0.40);
 }
 
 .hero-content {
