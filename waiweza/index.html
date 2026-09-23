@@ -121,6 +121,45 @@
           </div>
         </article>
       </div>
+
+      <div class="repair-form-wrap">
+        <div class="repair-form-header">
+          <h3>Agendar reparação</h3>
+          <p>Preenche o formulário e envia o pedido no WhatsApp.</p>
+        </div>
+        <form class="repair-form" id="repairForm">
+          <div class="repair-form-grid">
+            <label class="form-field">
+              <span>Nome</span>
+              <input type="text" name="nome" required placeholder="O teu nome" autocomplete="name">
+            </label>
+            <label class="form-field">
+              <span>Telefone</span>
+              <input type="tel" name="telefone" required placeholder="9XX XXX XXX" autocomplete="tel">
+            </label>
+            <label class="form-field">
+              <span>Modelo do telefone</span>
+              <input type="text" name="modelo" required placeholder="Ex: Samsung A20, iPhone 11">
+            </label>
+            <label class="form-field">
+              <span>Serviço</span>
+              <select name="servico" required>
+                <option value="">Selecciona o serviço</option>
+                <option value="Trocar Visor">Trocar Visor</option>
+                <option value="Conector de Carga">Conector de Carga</option>
+                <option value="Alto-falante">Alto-falante</option>
+                <option value="Microfone">Microfone</option>
+                <option value="Outro">Outro</option>
+              </select>
+            </label>
+            <label class="form-field form-field-full">
+              <span>Descrição do problema</span>
+              <textarea name="descricao" rows="3" placeholder="Conta o que aconteceu com o telefone..."></textarea>
+            </label>
+          </div>
+          <button type="submit" class="btn btn-primary">Enviar no WhatsApp</button>
+        </form>
+      </div>
     </div>
   </section>
 

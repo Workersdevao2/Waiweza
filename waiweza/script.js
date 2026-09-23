@@ -346,16 +346,16 @@ function initRepairForm() {
     const servico = (data.get('servico') || '').toString().trim();
     const descricao = (data.get('descricao') || '').toString().trim();
 
-    let message = 'Olá! Quero agendar uma reparação:%0A%0A';
-    message += `*Nome:* ${encodeURIComponent(nome)}%0A`;
-    message += `*Telefone:* ${encodeURIComponent(telefone)}%0A`;
-    message += `*Modelo:* ${encodeURIComponent(modelo)}%0A`;
-    message += `*Serviço:* ${encodeURIComponent(servico)}%0A`;
+    let message = 'Olá! Quero agendar uma reparação:\n\n';
+    message += `*Nome:* ${nome}\n`;
+    message += `*Telefone:* ${telefone}\n`;
+    message += `*Modelo:* ${modelo}\n`;
+    message += `*Serviço:* ${servico}\n`;
     if (descricao) {
-      message += `*Problema:* ${encodeURIComponent(descricao)}%0A`;
+      message += `*Problema:* ${descricao}\n`;
     }
 
-    window.open(`https://wa.me/244932746855?text=${message}`, '_blank');
+    window.open(`https://wa.me/244932746855?text=${encodeURIComponent(message)}`, '_blank');
   });
 }
 
