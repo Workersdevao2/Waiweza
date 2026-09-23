@@ -671,6 +671,36 @@ button {
   background: var(--bg);
 }
 
+.contact-card-img {
+  position: relative;
+  min-height: 280px;
+  padding: 0;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+}
+
+.contact-card-bg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  transition: transform 0.5s ease;
+}
+
+.contact-card-img:hover .contact-card-bg {
+  transform: scale(1.04);
+}
+
+.contact-card-content {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  padding: 1.75rem 1.4rem;
+  background: linear-gradient(to top, rgba(0,0,0,0.78) 0%, rgba(0,0,0,0.35) 55%, transparent 100%);
+  color: var(--white);
+}
+
 .contact-card h3 {
   font-weight: 400;
   font-size: 0.85rem;
@@ -680,10 +710,18 @@ button {
   margin-bottom: 1rem;
 }
 
+.contact-card-img h3 {
+  color: rgba(255,255,255,0.85);
+}
+
 .contact-card p {
   font-weight: 300;
   font-size: 0.95rem;
   line-height: 1.7;
+}
+
+.contact-card-img p {
+  color: rgba(255,255,255,0.92);
 }
 
 .contact-link {
@@ -692,6 +730,21 @@ button {
   font-weight: 400;
   letter-spacing: 0.04em;
   margin-bottom: 1.25rem;
+}
+
+.contact-card-img .contact-link {
+  color: var(--white);
+}
+
+.contact-card-img .btn-primary {
+  background: rgba(255,255,255,0.15);
+  border-color: rgba(255,255,255,0.45);
+  color: var(--white);
+}
+
+.contact-card-img .btn-primary:hover {
+  background: rgba(255,255,255,0.25);
+  border-color: rgba(255,255,255,0.7);
 }
 
 /* ===== Footer ===== */
