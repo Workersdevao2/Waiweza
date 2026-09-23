@@ -835,3 +835,13 @@ button {
     padding: 4rem 0;
   }
 }
+
+/* About page */
+.page-main {
+  padding-top: 64px;
+}
+
+.page-main .section {
+  padding-top: 4rem;
+}
+
