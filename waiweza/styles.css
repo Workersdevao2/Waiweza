@@ -807,7 +807,7 @@ button {
   }
 
   .hero-bg {
-    background-position: center 35%;
+    background-position: center center;
     background-size: cover;
   }
 
@@ -828,7 +828,7 @@ button {
   }
 
   .hero-bg {
-    background-position: center 30%;
+    background-position: center center;
   }
 
   .section {
