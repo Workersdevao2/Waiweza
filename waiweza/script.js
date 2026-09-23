@@ -106,28 +106,81 @@ function renderProducts() {
     btn.addEventListener('click', () => addToCart(btn.dataset.id));
   });
 
-  root.querySelectorAll('.product-row').forEach(row => {
-    const track = row.querySelector('.carousel-track');
-    const prev = row.querySelector('.carousel-prev');
-    const next = row.querySelector('.carousel-next');
-    const step = () => Math.max(track.clientWidth * 0.85, 200);
+  root.querySelectorAll('.product-row').forEach(initInfiniteCarousel);
+}
 
-    const maxScroll = () => track.scrollWidth - track.clientWidth;
+function initInfiniteCarousel(row) {
+  const track = row.querySelector('.carousel-track');
+  const prev = row.querySelector('.carousel-prev');
+  const next = row.querySelector('.carousel-next');
+  if (!track || track.dataset.infinite === '1') return;
 
-    prev.addEventListener('click', () => {
-      if (track.scrollLeft <= 8) {
-        track.scrollTo({ left: maxScroll(), behavior: 'smooth' });
-      } else {
-        track.scrollBy({ left: -step(), behavior: 'smooth' });
-      }
+  const originals = Array.from(track.children);
+  if (originals.length === 0) return;
+
+  // Clone set twice so content always repeats
+  originals.forEach(node => track.appendChild(node.cloneNode(true)));
+  originals.forEach(node => track.appendChild(node.cloneNode(true)));
+
+  // Re-bind add buttons on clones
+  track.querySelectorAll('.btn-add').forEach(btn => {
+    btn.addEventListener('click', () => addToCart(btn.dataset.id));
+  });
+
+  track.dataset.infinite = '1';
+
+  // Start in the middle set so both directions work
+  const setWidth = () => {
+    // width of one original set
+    let w = 0;
+    for (let i = 0; i < originals.length; i++) {
+      w += originals[i].offsetWidth;
+      const style = getComputedStyle(track);
+      const gap = parseFloat(style.gap || '0') || 0;
+      if (i < originals.length - 1) w += gap;
+    }
+    return w;
+  };
+
+  // Wait a frame for layout
+  requestAnimationFrame(() => {
+    const oneSet = setWidth();
+    if (oneSet > 0) track.scrollLeft = oneSet;
+  });
+
+  let locking = false;
+
+  const normalize = () => {
+    if (locking) return;
+    const oneSet = setWidth();
+    if (oneSet <= 0) return;
+    if (track.scrollLeft <= oneSet * 0.15) {
+      locking = true;
+      track.scrollLeft += oneSet;
+      locking = false;
+    } else if (track.scrollLeft >= oneSet * 1.85) {
+      locking = true;
+      track.scrollLeft -= oneSet;
+      locking = false;
+    }
+  };
+
+  track.addEventListener('scroll', () => {
+    // use rAF to avoid thrashing
+    if (track._infRaf) return;
+    track._infRaf = requestAnimationFrame(() => {
+      track._infRaf = null;
+      normalize();
     });
-    next.addEventListener('click', () => {
-      if (track.scrollLeft >= maxScroll() - 8) {
-        track.scrollTo({ left: 0, behavior: 'smooth' });
-      } else {
-        track.scrollBy({ left: step(), behavior: 'smooth' });
-      }
-    });
+  }, { passive: true });
+
+  const step = () => Math.max(track.clientWidth * 0.85, 200);
+
+  prev.addEventListener('click', () => {
+    track.scrollBy({ left: -step(), behavior: 'smooth' });
+  });
+  next.addEventListener('click', () => {
+    track.scrollBy({ left: step(), behavior: 'smooth' });
   });
 }
 
